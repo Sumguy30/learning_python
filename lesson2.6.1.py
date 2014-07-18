@@ -69,7 +69,15 @@ class Fridge:
         return
     
             
-    
+    def has(self, food_name, quantity=1):
+        """has(food_name, [quantity]) - checks if the string food_name is in the
+          fridge.  Quantity defaults to 1
+          Returns True if there is enough, False otherwise.
+        """
+
+
+        blahb lahblah
+        
 
 def make_omelet_q3 (fridge,omelet_type):
     print(fridge)
