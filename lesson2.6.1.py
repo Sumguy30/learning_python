@@ -24,7 +24,7 @@ class Fridge:
         """Optionally pass in an initial dictionary of items"""
         if type(items) != type({}):
             raise TypeError("Fridge requires a dictionary but was given %s" % type(items))
-        self.items = items
+        self.syditems = items
         return
 
     # the docstring and intervening portions of the class would be here, and
@@ -36,9 +36,9 @@ class Fridge:
           This should only be used internally, after the type checking has been
           done"""
 
-        if (not food_name in self.items):
-            self.items[food_name] = 0
-        self.items[food_name] = self.items[food_name] + quantity
+        if (not food_name in self.syditems):
+            self.syditems[food_name] = 0
+        self.syditems[food_name] = self.syditems[food_name] + quantity
 
     def add_one(self, food_name):
         """
@@ -74,8 +74,76 @@ class Fridge:
           fridge.  Quantity defaults to 1
           Returns True if there is enough, False otherwise.
         """
+        return self.has_various({food_name:quantity})
 
-        roaming guys say they are important
+    def has_various(self, foods):
+        """
+        has_various(foods) determines if the dictionary food_name
+        has enough of every element to satisfy a request.
+        returns True if there's enough, False if there's not or if an element
+        does not exist.
+        """
+        try:
+            for food in foods.keys():
+                if self.syditems[food] < foods[food]:
+                    return False
+            return True
+        except KeyError:
+            return False
+        
+    def __get_multi(self, food_name, quantity):
+        """ _get_multi(food_name, quantity) - removes more than one of a
+        food item. Returns the number of items removed
+        returns False if there isn't enough food_name in the fridge.
+        This should only be used internally, after the type checking has been
+        done.  Wants food key and quantity
+        """
+        try:
+            if (self.items[food_name] is None):
+                return False
+            if (quantity > self.syditems[food_name]):
+                return False
+            self.items[food_name] = self.syditems[food_name] - quantity
+        except KeyError:
+            return False
+        return quantity
+
+    def get_one(self, food_name):
+        """get_one(food_name) - takes out a single food_name from the fridge
+        returns a dictionary with the food:1 as a result, or False if there
+  wasn't
+        enough in the fridge.
+        """
+        if type(food_name) != type(""):
+            raise TypeError("get_one requires a string, given a %s" % type(food_name))
+        else:
+            result = self.__get_multi(food_name,1)
+        return result
+
+    def get_many(self, food_dict):
+        """get_many(food_dict) - takes out a whole dictionary worth of food.
+         returns a dictionary with all of the ingredients
+         returns False if there are not enough ingredients or if a dictionary
+         isn't provided.
+        """
+        if self.has_various(food_dict):
+            food_removed ={}
+            for item in food_dict.keys():
+                foods_removed[item] = self.__get_multi(item, food_dict[item])
+            return foods_removed
+
+    def get_ingredients(self, food):
+        """get_ingredients(food) - If passed an object that has the __ingredients__
+             method, get_many will invoke this to get the list of ingredients.
+        """
+        try:
+            ingredients = self.get_name(food.___ingredients__())
+        except AttributeError:
+            return False
+
+        if ingredients != False:
+            return ingredients  
+        
 
 def make_omelet_q3 (fridge,omelet_type):
     print(fridge)
