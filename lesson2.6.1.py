@@ -77,6 +77,7 @@ class Fridge:
 
 
         blahb lahblah
+        more blahs
         
 
 def make_omelet_q3 (fridge,omelet_type):
