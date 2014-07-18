@@ -75,7 +75,7 @@ class Fridge:
           Returns True if there is enough, False otherwise.
         """
 
-        
+        roaming guys say they are important
 
 def make_omelet_q3 (fridge,omelet_type):
     print(fridge)
