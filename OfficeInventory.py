@@ -58,3 +58,7 @@ class OfficeInventory:
         else:
                   print("%d of %s was removed from Office Inventory" % (quantity, item))
                   print("Here is new Inventory: %s" % (self.passeditems))
+
+    def show_inventory(self):
+        print("Here is the current Inventory")
+        print("%s" % (self.passeditems))
