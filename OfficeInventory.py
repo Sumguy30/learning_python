@@ -10,16 +10,16 @@ class OfficeInventory:
 
 
     def add_inventory(self,items,quantity=1):
-        self.__addremove_inventory(items,True,quantity)        
+        self.__addremove_inventory(items,"addinv",quantity)        
         return
                   
     def remove_inventory(self,items,quantity=1):
-        self.__addremove_inventory(items,False,quantity)
+        self.__addremove_inventory(items,"removeinv",quantity)
         return
     
 
     def __addremove_inventory(self,items,addflag,quantity):
-        if addflag == True:
+        if addflag == "addinv":
             if type(items) == type({}):
                 for eachitem in items.keys():
                     self.__add_inv(eachitem,items[eachitem],addflag)
@@ -44,16 +44,17 @@ class OfficeInventory:
         # eg: passeditem[paper]=10
         if (item in self.passeditems):
             self.passeditems[item] = self.passeditems[item] - quantity
+            if self.passeditems[item] < 0:
+                self.passeditems[item] = 0
             self.show_inv(item, quantity, addflag)
         else:   
-            print("You can't %s because you don't have anymore idiot!" % (item))
+            print("You can't remove %s because you never had idiot!" % (item))
     
         
     def show_inv(self,item, quantity, addflag):
-        print("Here is current Inventory: %s" % (self.passeditems))
-        if addflag == True:
+        if addflag == "addinv":
                   print("%d of %s was added to Office Inventory\n" % (quantity, item))
                   print("Here is new Inventory: %s" % (self.passeditems))
-        elif addflag == False:
+        else:
                   print("%d of %s was removed from Office Inventory" % (quantity, item))
                   print("Here is new Inventory: %s" % (self.passeditems))
