@@ -37,7 +37,7 @@ class OfficeInventory:
         if (not item in self.passeditems):
             self.passeditems[item] = 0
         self.passeditems[item] = self.passeditems[item] + quantity
-        self.show_inv(item, quantity, addflag)
+        self.__show_inv(item, quantity, addflag)
 
 
     def __remove_inv(self,item,quantity,addflag):
@@ -46,12 +46,12 @@ class OfficeInventory:
             self.passeditems[item] = self.passeditems[item] - quantity
             if self.passeditems[item] < 0:
                 self.passeditems[item] = 0
-            self.show_inv(item, quantity, addflag)
+            self.__show_inv(item, quantity, addflag)
         else:   
             print("You can't remove %s because you never had idiot!" % (item))
     
         
-    def show_inv(self,item, quantity, addflag):
+    def __show_inv(self,item, quantity, addflag):
         if addflag == "addinv":
                   print("%d of %s was added to Office Inventory\n" % (quantity, item))
                   print("Here is new Inventory: %s" % (self.passeditems))
